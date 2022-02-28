@@ -19,7 +19,7 @@ class UserListVIewModel(private val app: Context) : ViewModel() {
     val users = MutableLiveData<List<User>>()
     val countryLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
-    var webApiClient: WebApiClient? = WebApiClient()
+    var webApiClient: WebApiClient? = WebApiClient(app)
 
     private lateinit var mAppDb: AppDataBase
 
@@ -48,7 +48,7 @@ class UserListVIewModel(private val app: Context) : ViewModel() {
 
     private fun fetchCountry() {
         loading.value = true
-        var responsecall: Call<RandomUserApiResponse> = WebApiClient().getRandomUser()
+        var responsecall: Call<RandomUserApiResponse> = webApiClient?.getRandomUser()!!
         responsecall.enqueue(object : Callback<RandomUserApiResponse> {
             override fun onResponse(
                 call: Call<RandomUserApiResponse>,
