@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import com.pra.modernappmvvm.Data.model.user.User
 
 @Database(entities = [User::class], version = 1)
-abstract class AppDataBase :RoomDatabase() {
+abstract class AppDataBase : RoomDatabase() {
 
-    abstract fun userDaO():UserDao
+    abstract fun userDaO(): UserDao
 
 
     companion object {
@@ -25,8 +25,8 @@ abstract class AppDataBase :RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context,
                     AppDataBase::class.java,
-                    "modern_database"
-                ).build()
+                    "AppDb.db"
+                ).setJournalMode(JournalMode.TRUNCATE).build()
                 INSTANCE = instance
                 // return instance
                 instance
